@@ -1,0 +1,74 @@
+cdk-virtual-scroll-viewport {
+  border: 1px solid white;
+  border-radius: 4px;
+  height: 500px;
+  width: 300px;
+}
+
+.item {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  margin: 10px;
+  background: rgba(255,255,255,.3);
+  border: 1px solid rgba(255,255,255,1);
+  flex-direction: column;
+  padding: 10px;
+  visibility: hidden;
+
+   & p:first-child {
+     color: darkblue;
+     font-weight: bold;
+     font-size: 18px;
+   }
+
+  &:not(:last-child) {
+    margin-bottom: 10px;
+  }
+
+  &.item-1 {
+    height: 400px;
+
+  }
+
+  &.item-2 {
+    height: 250px;
+  }
+
+  &.item-3 {
+    height: 450px;
+  }
+
+  &.item-4 {
+    height: 600px;
+  }
+
+  &.item-5 {
+    height: 1000px;
+  }
+
+  &.item-6 {
+    height: 350px;
+  }
+
+  &.item-7 {
+    height: 450px;
+  }
+
+  &.item-8 {
+    height: 550px;
+  }
+
+  &.item-9 {
+    height: 500px;
+  }
+
+  &.item-10 {
+    height: 200px;
+    bottom: 0;
+  }
+}
+
+.visible {
+  visibility: visible;
+}

@@ -1,0 +1,4 @@
+<cdk-virtual-scroll-viewport autosize  minBufferPx="500px" (mouseup) = "scroll($event)">
+  <div class="item item-{{index +1}}" *cdkVirtualFor="let item of items; let index = index"><p>{{item.name}}</p><p>{{item.description}}</p></div>
+</cdk-virtual-scroll-viewport>
+
