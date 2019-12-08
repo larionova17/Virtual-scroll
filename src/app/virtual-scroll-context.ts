@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 import {VirtualScrollService} from './virtual-scroll.service';
 
 @Component({
@@ -7,7 +7,8 @@ import {VirtualScrollService} from './virtual-scroll.service';
   styleUrls: ['virtual-scroll-context.less']
 })
 
-export class VirtualScrollContext {
+export class VirtualScrollContext implements OnDestroy {
+  subscription;
   items = [
     {id: 1, name: '', description: ''},
     {id: 2, name: '', description: ''},
@@ -19,9 +20,10 @@ export class VirtualScrollContext {
     {id: 8, name: '', description: ''},
     {id: 9, name: '', description: ''},
     {id: 10, name: '', description: ''}
-    ];
+  ];
 
-  constructor(private service: VirtualScrollService){}
+  constructor(private service: VirtualScrollService) {
+  }
 
   scroll = (event: any): void => {
     if (event.target.className === 'cdk-virtual-scroll-viewport cdk-virtual-scroll-orientation-vertical') {
@@ -67,11 +69,20 @@ export class VirtualScrollContext {
   };
 
   getData(id, firstDiv) {
-    this.service.getMovies(id).subscribe(data => { for (let i of data) {
-      this.items[i.id -1].name = i.name;
-      this.items[i.id-1].description = i.description;
-      firstDiv.children[i.id -1].classList.add('visible');
-    }});
+    this.subscription = this.service.getMovies(id).subscribe(data => {
+      for (let i of data) {
+        this.items[i.id - 1].name = i.name;
+        this.items[i.id - 1].description = i.description;
+        firstDiv.children[i.id - 1].classList.add('visible');
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+      this.subscription = null;
+    }
   }
 }
 
